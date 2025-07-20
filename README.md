@@ -26,3 +26,5 @@ Este projeto contém a API backend desenvolvida em Spring Boot, que pode ser exe
 ```bash
 git clone https://github.com/ThArthur/order-back.git
 cd order-back
+docker-compose up -d
+mvn clean spring-boot:run
