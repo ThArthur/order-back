@@ -1,5 +1,6 @@
 package com.arthur.desafio.dto.client.request;
 
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,6 @@ public class CreateClientPayloadDto {
     private String name;
 
     @NotNull(message = "O Limite de crédito é obrigatório")
-    @NotBlank(message = "O Limite não pode estar em branco")
+    @DecimalMin(value = "0.0", inclusive = false, message = "O Limite deve ser maior que zero")
     private BigDecimal creditLimit;
 }
