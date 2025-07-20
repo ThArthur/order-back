@@ -6,7 +6,7 @@ Este projeto contém a API backend desenvolvida em Spring Boot, que pode ser exe
 
 ## Pré-requisitos
 
-- [Java JDK 17+](https://adoptium.net/) (para executar localmente sem Docker)
+- Java JDK 17 (para executar localmente sem Docker)
 - [Docker](https://docs.docker.com/get-docker/) instalado e rodando
 - [Docker Compose](https://docs.docker.com/compose/install/) instalado
 
