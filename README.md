@@ -21,8 +21,6 @@ Este projeto contém a API backend desenvolvida em Spring Boot, que pode ser exe
 
 ## Passos para executar
 
-### 1. Clonar o repositório
-
 ```bash
 git clone https://github.com/ThArthur/order-back.git
 cd order-back
