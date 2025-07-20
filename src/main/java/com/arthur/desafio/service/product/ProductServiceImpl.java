@@ -1,15 +1,13 @@
 package com.arthur.desafio.service.product;
 
-import com.arthur.desafio.dto.product.response.ProductDto;
-import com.arthur.desafio.dto.product.request.CreateProductDto;
+import com.arthur.desafio.dto.product.response.ProductRequestDto;
+import com.arthur.desafio.dto.product.request.CreateProductPayloadDto;
 import com.arthur.desafio.model.Product;
 import com.arthur.desafio.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -18,11 +16,11 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     @Override
-    public Page<ProductDto> getAllProducts(Pageable pageable) {
+    public Page<ProductRequestDto> getAllProducts(Pageable pageable) {
 
         return productRepository
                 .findAll(pageable)
-                .map(product -> ProductDto.builder()
+                .map(product -> ProductRequestDto.builder()
                         .id(product.getId())
                         .name(product.getName())
                         .price(product.getPrice())
@@ -31,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDto createProduct(CreateProductDto product) {
+    public ProductRequestDto createProduct(CreateProductPayloadDto product) {
         Product productCreated = productRepository.save(
                 Product.builder()
                         .name(product.getName())
@@ -39,7 +37,7 @@ public class ProductServiceImpl implements ProductService {
                         .build()
         );
 
-        return ProductDto.builder()
+        return ProductRequestDto.builder()
                 .id(productCreated.getId())
                 .name(productCreated.getName())
                 .price(productCreated.getPrice())

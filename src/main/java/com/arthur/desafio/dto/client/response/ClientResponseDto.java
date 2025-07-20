@@ -1,4 +1,4 @@
-package com.arthur.desafio.dto.product.response;
+package com.arthur.desafio.dto.client.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,9 +11,10 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ProductDto {
+public class ClientResponseDto {
 
     private Long id;
     private String name;
-    private BigDecimal price;
+    private BigDecimal creditLimit;
+    private BigDecimal spendThisMonth;
 }

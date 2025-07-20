@@ -1,7 +1,7 @@
 package com.arthur.desafio.service.client;
 
-import com.arthur.desafio.dto.client.request.CreateClientDto;
-import com.arthur.desafio.dto.client.response.ClientDto;
+import com.arthur.desafio.dto.client.request.CreateClientPayloadDto;
+import com.arthur.desafio.dto.client.response.ClientResponseDto;
 import com.arthur.desafio.model.Client;
 import com.arthur.desafio.repository.client.ClientRepository;
 import com.arthur.desafio.service.order.OrderService;
@@ -9,8 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -21,10 +19,10 @@ public class ClientServiceImpl implements ClientService {
     private final OrderService orderService;
 
     @Override
-    public Page<ClientDto> getAllClients(Pageable pageable) {
+    public Page<ClientResponseDto> getAllClients(Pageable pageable) {
 
         return clientRepository.findAll(pageable)
-                .map(client -> ClientDto.builder()
+                .map(client -> ClientResponseDto.builder()
                         .id(client.getId())
                         .name(client.getName())
                         .creditLimit(client.getCreditLimit())
@@ -33,7 +31,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public ClientDto createClient(CreateClientDto client) {
+    public ClientResponseDto createClient(CreateClientPayloadDto client) {
         Client savedClient = clientRepository.save(
                 Client.builder()
                         .name(client.getName())
@@ -41,7 +39,7 @@ public class ClientServiceImpl implements ClientService {
                         .build()
         );
 
-        return ClientDto.builder()
+        return ClientResponseDto.builder()
                 .id(savedClient.getId())
                 .name(savedClient.getName())
                 .creditLimit(savedClient.getCreditLimit())
@@ -49,10 +47,10 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public ClientDto getClientById(Long id) {
+    public ClientResponseDto getClientById(Long id) {
         Client client = clientRepository.findById(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
 
-        return ClientDto.builder()
+        return ClientResponseDto.builder()
                 .id(client.getId())
                 .name(client.getName())
                 .creditLimit(client.getCreditLimit())

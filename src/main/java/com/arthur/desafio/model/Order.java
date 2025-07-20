@@ -29,14 +29,14 @@ public class Order {
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
-    @NotNull
+    @Column(nullable = false)
     private LocalDate orderDate;
 
-    @NotNull
+    @Column(nullable = false)
     private BigDecimal totalValue;
 
     @Enumerated(EnumType.STRING)
-    @NotNull
+    @Column(nullable = false)
     private OrderStatus status;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

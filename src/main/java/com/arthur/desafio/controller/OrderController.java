@@ -1,9 +1,10 @@
 package com.arthur.desafio.controller;
 
-import com.arthur.desafio.dto.order.request.OrderRequestDto;
+import com.arthur.desafio.dto.order.request.OrderPayloadDto;
 import com.arthur.desafio.dto.order.response.AllOrdersResponseDto;
 import com.arthur.desafio.dto.order.response.OrderResponseDto;
 import com.arthur.desafio.service.order.OrderService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,7 +33,7 @@ public class OrderController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<OrderResponseDto> createOrder(@RequestBody OrderRequestDto order) {
+    public ResponseEntity<OrderResponseDto> createOrder(@RequestBody @Valid OrderPayloadDto order) {
         return ResponseEntity.ok(orderService.createOrder(order));
     }
 }

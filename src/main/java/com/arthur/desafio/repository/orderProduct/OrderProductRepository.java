@@ -1,4 +1,4 @@
-package com.arthur.desafio.repository.order;
+package com.arthur.desafio.repository.orderProduct;
 
 import com.arthur.desafio.model.OrderProduct;
 

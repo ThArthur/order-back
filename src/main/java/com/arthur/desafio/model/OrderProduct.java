@@ -1,6 +1,6 @@
 package com.arthur.desafio.model;
+
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,9 +27,9 @@ public class OrderProduct {
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    @NotNull
+    @Column(nullable = false)
     private Integer quantity;
 
-    @NotNull
+    @Column(nullable = false)
     private BigDecimal subtotal;
 }

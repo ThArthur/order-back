@@ -1,4 +1,4 @@
-package com.arthur.desafio.repository.orderProduct;
+package com.arthur.desafio.repository.order;
 
 
 import com.arthur.desafio.enums.OrderStatus;

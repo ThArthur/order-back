@@ -1,17 +1,18 @@
 package com.arthur.desafio.service.order;
 
-import com.arthur.desafio.dto.order.request.OrderItemDto;
-import com.arthur.desafio.dto.order.request.OrderRequestDto;
+import com.arthur.desafio.dto.order.request.OrderItemPayloadDto;
+import com.arthur.desafio.dto.order.request.OrderPayloadDto;
 import com.arthur.desafio.dto.order.response.AllOrdersResponseDto;
 import com.arthur.desafio.dto.order.response.OrderResponseDto;
 import com.arthur.desafio.enums.OrderStatus;
+import com.arthur.desafio.exception.NotFoundException;
 import com.arthur.desafio.model.Client;
 import com.arthur.desafio.model.Order;
 import com.arthur.desafio.model.OrderProduct;
 import com.arthur.desafio.model.Product;
 import com.arthur.desafio.repository.client.ClientRepository;
-import com.arthur.desafio.repository.order.OrderProductRepository;
-import com.arthur.desafio.repository.orderProduct.OrderRepository;
+import com.arthur.desafio.repository.orderProduct.OrderProductRepository;
+import com.arthur.desafio.repository.order.OrderRepository;
 import com.arthur.desafio.repository.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -54,13 +55,13 @@ public class OrderServiceImpl implements OrderService {
         return totalSpendThisMonth;
     }
 
-    public OrderResponseDto createOrder(OrderRequestDto orderRequestDto) {
+    public OrderResponseDto createOrder(OrderPayloadDto orderPayloadDto) {
 
-        Client client = clientRepository.findById(orderRequestDto.getClientId())
-                .orElseThrow(() -> new RuntimeException("Cliente nao encontrado"));
+        Client client = clientRepository.findById(orderPayloadDto.getClientId())
+                .orElseThrow(() -> new NotFoundException("Cliente não encontrado"));
 
-        List<Long> productIds = orderRequestDto.getItems().stream()
-                .map(OrderItemDto::getProductId)
+        List<Long> productIds = orderPayloadDto.getItems().stream()
+                .map(OrderItemPayloadDto::getProductId)
                 .toList();
 
         Map<Long, Product> productMap = productRepository.findAllByIds(productIds)
@@ -74,7 +75,7 @@ public class OrderServiceImpl implements OrderService {
                     .filter(id -> !foundIds.contains(id))
                     .toList();
 
-            throw new RuntimeException("Produtos não encontrados para os IDs: " + missingIds);
+            throw new NotFoundException("Produtos não encontrados para os IDs: " + missingIds);
         }
 
         List<Order> previousOrders = orderRepository.findByClientAndOrderDateAfterAndStatus(
@@ -91,11 +92,11 @@ public class OrderServiceImpl implements OrderService {
 
         BigDecimal orderTotalValue = BigDecimal.ZERO;
 
-        for (OrderItemDto item : orderRequestDto.getItems()) {
+        for (OrderItemPayloadDto item : orderPayloadDto.getItems()) {
             Product product = productMap.get(item.getProductId());
 
             if (product == null) {
-                throw new RuntimeException("Produto não encontrado");
+                throw new NotFoundException("Produto com ID " + item.getProductId() + " não encontrado.");
             }
 
             BigDecimal subtotal = product.getPrice().multiply(new BigDecimal(item.getQuantity()));
