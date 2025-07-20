@@ -33,7 +33,7 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
 
         if(!clientRepository.hasClient()) {
             for (int i = 1; i <= 20; i++) {
