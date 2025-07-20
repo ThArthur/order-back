@@ -12,13 +12,6 @@ Este projeto contém a API backend desenvolvida em Spring Boot, que pode ser exe
 
 ---
 
-## Estrutura do projeto
-
-- Backend Spring Boot (`/backend` ou raiz do projeto)
-- Banco de dados (MySQL/PostgreSQL) via Docker Compose
-
----
-
 # Modelo ER
 ![Texto alternativo](./modelo.png)
 
