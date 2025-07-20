@@ -19,6 +19,9 @@ Este projeto contém a API backend desenvolvida em Spring Boot, que pode ser exe
 
 ---
 
+# Modelo ER
+![Texto alternativo](./Modelo.png)
+
 ## Passos para executar
 
 ```bash
